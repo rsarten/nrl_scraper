@@ -27,7 +27,7 @@ with webdriver.Firefox(options=options) as driver:
 	team_list = [correct_case(team.text) for team in teams.find_elements(By.TAG_NAME, 'option')]
 	teams_dropdown = Select(teams)
 
-	for t in range(12, len(team_list)):
+	for t in range(1, len(team_list)):
 		team = team_list[t]
 		print("--------------------------------")
 		print(team)
