@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 stat_data = pd.read_csv('data/summarised/base_stats.csv')
 stat_data = stat_data.dropna() # NAs from lag shift
 
-features = ['break_even'] + [col for col in stat_data.columns if col.startswith('prev')]
+features = [col for col in stat_data.columns if col.startswith('prev')]
 X = stat_data[features]
 X.drop('prev_position', axis=1, inplace=True)
 y = stat_data['fantasy_points']
@@ -33,8 +33,8 @@ accuracies=cross_val_score(estimator=model,
                            n_jobs=-1,
                            scoring='neg_root_mean_squared_error')
 # >>> accuracies
-# array([-17.22918461, -16.89207569, -17.10417427, -17.60979111,
-#        -17.49284522, -16.64487047, -17.30551829, -17.23817639])
+# array([-17.58909675, -17.22713347, -17.78423831, -18.14432617,
+#        -17.76850477, -17.22250843, -17.85063924, -17.49863127])
 
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3, random_state=1234)
 
@@ -46,5 +46,5 @@ from matplotlib import pyplot
 from xgboost import plot_importance
 ax = plot_importance(model, max_num_features=20) # top 10 most important features
 ax.figure.tight_layout()
-ax.figure.savefig('plot.png')
+ax.figure.savefig('plots/basic_importance.png')
 
